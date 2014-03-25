@@ -10,7 +10,7 @@
 #import <objc/runtime.h>
 
 @interface UIImageView (DCAnimationKit)
-@property (readwrite, nonatomic, strong, setter = dc_setAnimator:)UIDynamicAnimator *dc_animator;
+@property (readwrite, nonatomic, strong, setter = dc_supAnimator:)UIDynamicAnimator *dc_supAnimator;
 @end
 
 @implementation UIView (DCAnimationKit)
@@ -19,18 +19,22 @@ static NSTimeInterval DEFAULT_DURATION = 0.25;
 
 //////////////////////////////////////////////////////////////////////////////////////
 - (UIDynamicAnimator*)dc_animator {
-    
-    UIDynamicAnimator *animator = (UIDynamicAnimator*)objc_getAssociatedObject(self, @selector(dc_animator));
-    if(!animator)
-    {
-        animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.superview];
-        [self dc_setAnimator:animator];
-    }
-    return (UIDynamicAnimator*)objc_getAssociatedObject(self, @selector(dc_animator));
+    return [self.superview dc_supAnimator];
 }
 //////////////////////////////////////////////////////////////////////////////////////
-- (void)dc_setAnimator:(UIDynamicAnimator*)animator {
-    objc_setAssociatedObject(self, @selector(dc_animator), animator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (UIDynamicAnimator*)dc_supAnimator {
+    
+    UIDynamicAnimator *animator = (UIDynamicAnimator*)objc_getAssociatedObject(self, @selector(dc_supAnimator));
+    if(!animator)
+    {
+        animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+        [self dc_setSupAnimator:animator];
+    }
+    return animator;
+}
+//////////////////////////////////////////////////////////////////////////////////////
+- (void)dc_setSupAnimator:(UIDynamicAnimator*)animator {
+    objc_setAssociatedObject(self, @selector(dc_supAnimator), animator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 //////////////////////////////////////////////////////////////////////////////////////
 CGFloat degreesToRadians(CGFloat degrees)
