@@ -222,7 +222,7 @@ typedef NS_ENUM(NSInteger, DCAnimationDirection) {
 -(void)compressIntoView:(DCAnimationFinished)finished;
 
 /**
- The view compress into it's frame place.
+ The view hinges and falls off screen.
  @param finished is called when the animation finishes
  */
 -(void)hinge:(DCAnimationFinished)finished;

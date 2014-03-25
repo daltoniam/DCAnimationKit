@@ -299,7 +299,8 @@ CGFloat degreesToRadians(CGFloat degrees)
         [self removeFromSuperview];
     [view addSubview:self];
     UIDynamicAnimator *animator = [self dc_animator];
-    [animator removeAllBehaviors];
+    if(!animator.isRunning)
+        [animator removeAllBehaviors];
     
     UISnapBehavior *snapBehaviour = [[UISnapBehavior alloc] initWithItem:self snapToPoint:self.center];
     [self setDirection:direction];
@@ -314,7 +315,8 @@ CGFloat degreesToRadians(CGFloat degrees)
         [self removeFromSuperview];
     [view addSubview:self];
     UIDynamicAnimator *animator = [self dc_animator];
-    [animator removeAllBehaviors];
+    if(!animator.isRunning)
+        [animator removeAllBehaviors];
     
     UIAttachmentBehavior *behavior = [[UIAttachmentBehavior alloc] initWithItem:self attachedToAnchor:self.center];
     [self setDirection:direction];
@@ -382,7 +384,8 @@ CGFloat degreesToRadians(CGFloat degrees)
 -(void)drop:(DCAnimationFinished)finished
 {
     UIDynamicAnimator *animator = [self dc_animator];
-    [animator removeAllBehaviors];
+    if(!animator.isRunning)
+        [animator removeAllBehaviors];
     
     UIGravityBehavior *gravityBehaviour = [[UIGravityBehavior alloc] initWithItems:@[self]];
     gravityBehaviour.gravityDirection = CGVectorMake(0.0f, 10.0f);
