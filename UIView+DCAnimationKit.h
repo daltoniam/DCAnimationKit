@@ -154,6 +154,13 @@ typedef void (^DCAnimationFinished)(void);
 -(void)bounce:(DCAnimationFinished)finished;
 
 /**
+ preform the bounce animation.
+ @param height is how many px to bounce up by. Default is 10.
+ @param finished is called when the animation finishes
+ */
+-(void)bounce:(CGFloat)height finished:(DCAnimationFinished)finished;
+
+/**
  preform the pulse animation.
  @param finished is called when the animation finishes
  */

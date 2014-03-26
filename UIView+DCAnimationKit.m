@@ -192,10 +192,15 @@ CGFloat degreesToRadians(CGFloat degrees)
 //////////////////////////////////////////////////////////////////////////////////////
 -(void)bounce:(DCAnimationFinished)finished
 {
-    [self moveY:-20 duration:0.25 finished:^{
-        [self moveY:20 duration:0.15 finished:^{
-            [self moveY:-5 duration:0.15 finished:^{
-                [self moveY:5 duration:0.05 finished:^{
+    [self bounce:10 finished:finished];
+}
+//////////////////////////////////////////////////////////////////////////////////////
+-(void)bounce:(CGFloat)height finished:(DCAnimationFinished)finished
+{
+    [self moveY:-height duration:0.25 finished:^{
+        [self moveY:-height duration:0.15 finished:^{
+            [self moveY:-(height/2) duration:0.15 finished:^{
+                [self moveY:height/2 duration:0.05 finished:^{
                     if(finished)
                         finished();
                 }];
