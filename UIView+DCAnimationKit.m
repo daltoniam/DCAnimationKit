@@ -389,8 +389,7 @@ CGFloat degreesToRadians(CGFloat degrees)
 -(void)drop:(DCAnimationFinished)finished
 {
     UIDynamicAnimator *animator = [self dc_animator];
-    if(!animator.isRunning)
-        [animator removeAllBehaviors];
+    [animator removeAllBehaviors];
     
     UIGravityBehavior *gravityBehaviour = [[UIGravityBehavior alloc] initWithItems:@[self]];
     gravityBehaviour.gravityDirection = CGVectorMake(0.0f, 10.0f);
