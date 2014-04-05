@@ -1,7 +1,7 @@
 DCAnimationKit
 ==============
 
-A collection of animations for iOS. Simple, just add water animations. DCAnimationKit is a category on UIView to make animations easy to preform.
+A collection of animations for iOS Simply, just add water! DCAnimationKit is a category on UIView to make animations easy to perform.
 
 ## Examples ##
 
@@ -176,7 +176,7 @@ __weak id weakSelf = self.moveView;
 }];
 ```
 
-or even to slide to a specific point (there is a move as well!).
+We can even slide to a specific point (there is a move as well!).
 
 ```objc
 [self.moveView movePoint:CGPointMake(100, 100) finished:NULL];
