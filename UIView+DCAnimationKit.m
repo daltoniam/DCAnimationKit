@@ -197,10 +197,11 @@ CGFloat degreesToRadians(CGFloat degrees)
 //////////////////////////////////////////////////////////////////////////////////////
 -(void)bounce:(CGFloat)height finished:(DCAnimationFinished)finished
 {
-    [self moveY:-height duration:0.25 finished:^{
-        [self moveY:-height duration:0.15 finished:^{
-            [self moveY:-(height/2) duration:0.15 finished:^{
-                [self moveY:height/2 duration:0.05 finished:^{
+    __weak UIView *weakSelf = self;
+    [weakSelf moveY:-height duration:0.25 finished:^{
+        [weakSelf moveY:height duration:0.15 finished:^{
+            [weakSelf moveY:-(height/2) duration:0.15 finished:^{
+                [weakSelf moveY:height/2 duration:0.05 finished:^{
                     if(finished)
                         finished();
                 }];
