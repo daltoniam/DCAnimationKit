@@ -240,5 +240,10 @@ typedef NS_ENUM(NSInteger, DCAnimationDirection) {
  */
 -(void)drop:(DCAnimationFinished)finished;
 
+/**
+ Remove the current animator animations applied.
+ */
+-(void)removeCurrentAnimations;
+
 
 @end

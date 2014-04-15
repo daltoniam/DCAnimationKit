@@ -299,6 +299,12 @@ CGFloat degreesToRadians(CGFloat degrees)
 #pragma intros
 
 //////////////////////////////////////////////////////////////////////////////////////
+-(void)removeCurrentAnimations
+{
+    UIDynamicAnimator *animator = [self dc_animator];
+    [animator removeAllBehaviors];
+}
+//////////////////////////////////////////////////////////////////////////////////////
 -(void)snapIntoView:(UIView*)view direction:(DCAnimationDirection)direction
 {
     if(self.superview != view)
