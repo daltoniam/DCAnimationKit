@@ -1,11 +1,12 @@
 Pod::Spec.new do |s|
   s.name         = "DCAnimationKit"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "A collection of just add water animations for iOS."
   s.homepage     = "https://github.com/daltoniam/DCAnimationKit"
   s.license      = 'Apache License, Version 2.0'
   s.author       = { "Dalton Cherry" => "daltoniam@gmail.com" }
-  s.source       = { :git => "https://github.com/daltoniam/DCAnimationKit.git", :tag => '0.0.4' }
+  s.social_media_url = 'http://twitter.com/daltoniam'
+  s.source       = { :git => "https://github.com/daltoniam/DCAnimationKit.git", :tag => "#{s.version}" }
   s.ios.deployment_target = '7.0'
   s.screenshots = [ "https://raw.github.com/daltoniam/DCAnimationKit/master/gifs/tada.gif",
                     "https://raw.github.com/daltoniam/DCAnimationKit/master/gifs/bounce.gif",
