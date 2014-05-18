@@ -52,8 +52,14 @@ CGFloat degreesToRadians(CGFloat degrees)
         frame.origin.y = -self.window.frame.size.height;
     else if(direction == DCAnimationDirectionLeft)
         frame.origin.x = -self.window.frame.size.width;
-    else
-        frame.origin.x = self.window.frame.size.width;
+    else {
+        CGFloat offset = self.window.frame.size.width;
+        if([self.superview isKindOfClass:[UIScrollView class]]) {
+            UIScrollView *view = (UIScrollView*)self.superview;
+            offset = view.contentSize.width;
+        }
+        frame.origin.x = offset;
+    }
     self.frame = frame;
 }
 //////////////////////////////////////////////////////////////////////////////////////
@@ -197,11 +203,12 @@ CGFloat degreesToRadians(CGFloat degrees)
 //////////////////////////////////////////////////////////////////////////////////////
 -(void)bounce:(CGFloat)height finished:(DCAnimationFinished)finished
 {
-    __weak UIView *weakSelf = self;
-    [weakSelf moveY:-height duration:0.25 finished:^{
-        [weakSelf moveY:height duration:0.15 finished:^{
-            [weakSelf moveY:-(height/2) duration:0.15 finished:^{
-                [weakSelf moveY:height/2 duration:0.05 finished:^{
+    UIDynamicAnimator *animator = [self dc_animator];
+    [animator removeAllBehaviors];
+    [self moveY:-height duration:0.25 finished:^{
+        [self moveY:height duration:0.15 finished:^{
+            [self moveY:-(height/2) duration:0.15 finished:^{
+                [self moveY:height/2 duration:0.05 finished:^{
                     if(finished)
                         finished();
                 }];
@@ -372,6 +379,8 @@ CGFloat degreesToRadians(CGFloat degrees)
 //////////////////////////////////////////////////////////////////////////////////////
 -(void)hinge:(DCAnimationFinished)finished
 {
+    UIDynamicAnimator *animator = [self dc_animator];
+    [animator removeAllBehaviors];
     CGPoint point = CGPointMake(self.frame.origin.x, self.frame.origin.y);
     self.layer.anchorPoint = CGPointMake(0, 0);
     self.center = point;
@@ -414,42 +423,6 @@ CGFloat degreesToRadians(CGFloat degrees)
             finished();
     }];
 }
-//////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////
-//still not please with the animation of this, so taking out for now.
-/*-(void)bounceIntoView:(UIView*)view direction:(DCAnimationDirection)direction
-{
-    if(self.superview != view)
-        [self removeFromSuperview];
-    [view addSubview:self];
-    UIDynamicAnimator *animator = [self dc_animator];
-    [animator removeAllBehaviors];
-    [self setDirection:direction];
-    
-    __weak id weakSelf = self;
-    [self setX:0 duration:0.5 finished:^{
-        
-        UICollisionBehavior* collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[weakSelf]];
-        collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
-        [animator addBehavior:collisionBehavior];
-        
-        UIDynamicItemBehavior *elasticityBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[weakSelf]];
-        elasticityBehavior.elasticity = 0.7f;
-        [animator addBehavior:elasticityBehavior];
-        
-        UIGravityBehavior* gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[weakSelf]];
-        gravityBehavior.gravityDirection = [weakSelf vectorDirection:direction];
-        [animator addBehavior:gravityBehavior];
-        
-//        UIPushBehavior * push = [[UIPushBehavior alloc] initWithItems:@[weakSelf] mode:UIPushBehaviorModeInstantaneous];
-//        push.pushDirection = [weakSelf vectorDirection:direction];
-//        push.magnitude = 1;
-//        [animator addBehavior:push];
-//        push.active = YES;
-    }];
-    
-}*/
 //////////////////////////////////////////////////////////////////////////////////////
 
 @end
