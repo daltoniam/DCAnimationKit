@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "DCAnimationKit"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "A collection of just add water animations for iOS."
   s.homepage     = "https://github.com/daltoniam/DCAnimationKit"
   s.license      = 'Apache License, Version 2.0'
